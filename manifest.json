@@ -1,0 +1,17 @@
+{
+    "name": "QR Code Generator",
+    "version": "1.0",
+    "description": "QR Code Generator by aSocial_Fingers. Generate and download your QR Codes for future usages. It's Free!",
+    "manifest_version": 3,
+    "author": "aSocial_Fingers",
+    "action":{
+        "default_popup": "index.html",
+        "default_title": "QR Code Generator",
+        "default_icon":"img/icon.png"
+    },
+    "icons":{
+        "16":"img/icon.png",
+        "48":"img/icon.png",
+        "128":"img/icon.png"
+    }
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <title>aSocial_Fingers QR Code Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="src/jquery-3.7.0.min.js"></script>
+    <script src="src/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <div class="creator">
+        <img height="50px" width="50px" src="img/aSocial_Fingers Logo Light White Shadow.png" />
+        <h4>Designed and Created by <a target="_blank" href="https://www.asocialfingers.com">aSocial_Fingers</a></h4>
+    </div>
+    <div class="page-header"></div>
+    <main>
+        <section>
+            <div class="qr-img" id="qrImgContainer">
+                <img id="qrious">
+                <p class="banner-text">QR Code by aSocial_Fingers</p>
+            </div>
+            <form autocomplete="off">
+                <label for="link">Link</label>
+                <input type="text" id="link" name="value" placeholder="Link here">
+
+                <label for="size">Size</label>
+                <input type="number" id="size" name="size" placeholder="100" min="100" max="1000" value="250">
+
+                <label for="padding">Padding</label>
+                <input type="number" name="padding" id="padding" placeholder="Auto" min="0">
+
+                <label for="level">Level</label>
+                <select name="level" id="level">
+                    <option value="L">L - 7% damage</option>
+                    <option value="M">M - 15% damage</option>
+                    <option value="Q">Q - 25% damage</option>
+                    <option value="H">H - 30% damage</option>
+                </select>
+
+                <label for="background">Background Color</label>
+                <input type="color" name="background" id="background" value="#ffffff">
+
+                <label for="backgroundAlpha">Background Alpha</label>
+                <input type="number" name="backgroundAlpha" id="backgroundAlpha" placeholder="1" min="0" max="1"
+                    step="0.1" value="1">
+
+                <label for="foreground">Foreground Color</label>
+                <input type="color" name="foreground" id="foreground" value="#000000">
+
+                <label for="foregroundAlpha">Foreground Alpha</label>
+                <input type="number" name="foregroundAlpha" id="foregroundAlpha" placeholder="1" min="0" max="1"
+                    step="0.1" value="1">
+                <button id="download">Download</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="dist/qrious.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
