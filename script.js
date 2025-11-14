@@ -70,7 +70,7 @@ document.getElementById("download").addEventListener("click", function() {
 		downloadLink.href = imageData;
   
 		var datetime = new Date().toISOString().replace(/[-:.]/g, "");
-		downloadLink.download = "qr-code-generator-aSocial_Fingers-" + datetime + ".png";
+		downloadLink.download = "qr-code-generator-Axinomюs-" + datetime + ".png";
   
 		downloadLink.click();
 	  }

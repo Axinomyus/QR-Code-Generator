@@ -1,9 +1,9 @@
 {
     "name": "QR Code Generator",
     "version": "1.0",
-    "description": "QR Code Generator by aSocial_Fingers. Generate and download your QR Codes for future usages. It's Free!",
+    "description": "QR Code Generator by Axinomюs. Generate and download your QR Codes for future usages. It's Free!",
     "manifest_version": 3,
-    "author": "aSocial_Fingers",
+    "author": "Axinomюs",
     "action":{
         "default_popup": "index.html",
         "default_title": "QR Code Generator",

@@ -1,7 +1,7 @@
 # QR-Code-Generator
-QR Code Generator by aSocial_Fingers. Generate and download your QR Codes for future usages. It's Free!
+QR Code Generator by Axinomюs. Generate and download your QR Codes for future usages. It's Free!
 
-Introducing the QR Code Generator, a revolutionary app developed by aSocial_Fingers. This powerful tool empowers users to effortlessly generate and download personalized QR codes for a wide range of purposes. Whether you need to promote your business, share contact information, or enhance your marketing campaigns, this app has got you covered.
+Introducing the QR Code Generator, a revolutionary app developed by Axinomюs. This powerful tool empowers users to effortlessly generate and download personalized QR codes for a wide range of purposes. Whether you need to promote your business, share contact information, or enhance your marketing campaigns, this app has got you covered.
 
 With its intuitive and user-friendly interface, the QR Code Generator makes it incredibly easy to create custom QR codes tailored to your specific needs. Simply input the desired information, such as URLs, text, contact details, or even Wi-Fi credentials, and watch as the app swiftly transforms it into a high-quality QR code.
 
