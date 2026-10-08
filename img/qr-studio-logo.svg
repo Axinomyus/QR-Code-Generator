@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
+    <title>Axinomyus QR Studio</title>
+    <rect x="16" y="16" width="96" height="96" rx="23" fill="#B1F55C"/>
+    <g fill="#17251B">
+        <path fill-rule="evenodd" d="M32 32h28v28H32V32Zm6 6v16h16V38H38Zm30-6h28v28H68V32Zm6 6v16h16V38H74ZM32 68h28v28H32V68Zm6 6v16h16V74H38Z"/>
+        <path d="M42 42h8v8h-8zm36 0h8v8h-8zM42 78h8v8h-8zm26-10h10v10H68zm18 0h10v10H86zM68 86h10v10H68zm10-8h8v8h-8zm8 8h10v10H86z"/>
+    </g>
+</svg>

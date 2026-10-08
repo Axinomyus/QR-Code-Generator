@@ -1,17 +1,22 @@
 {
     "name": "QR Code Generator",
-    "version": "1.0.1",
-    "description": "QR Code Generator by Axinomюs. Generate and download your QR Codes for future usages. It's Free!",
+    "version": "1.1.0",
+    "description": "QR Code Generator by Axinomyus. Generate and download your QR codes for free, with no expiry or scan limits.",
     "manifest_version": 3,
-    "author": "Axinomюs",
+    "author": "Axinomyus",
+    "homepage_url": "https://www.axinomyus.com/products/qr-code-generator-extension",
     "action":{
         "default_popup": "index.html",
         "default_title": "QR Code Generator",
-        "default_icon":"img/icon.png"
+        "default_icon":{
+            "16":"img/icon-16.png",
+            "32":"img/icon-32.png"
+        }
     },
     "icons":{
-        "16":"img/icon.png",
-        "48":"img/icon.png",
+        "16":"img/icon-16.png",
+        "32":"img/icon-32.png",
+        "48":"img/icon-48.png",
         "128":"img/icon.png"
     }
 }

@@ -1,0 +1,39 @@
+# Publish source, runtime assets and images explicitly used by README only.
+/*
+!/.gitignore
+!/README.md
+!/LICENSE
+!/manifest.json
+!/index.html
+!/style.css
+!/script.js
+!/content.js
+!/localization.js
+!/src/
+/src/*
+!/src/vendor/
+/src/vendor/*
+!/src/vendor/qrious.js
+!/src/vendor/LICENSE.qrious.txt
+!/img/
+/img/*
+!/img/icon.png
+!/img/icon-16.png
+!/img/icon-32.png
+!/img/icon-48.png
+!/img/qr-studio-logo.svg
+!/img/Axinomyus Logo Light White Shadow.png
+!/img/Axinomyus Logo Non-Transparent Shining.png
+!/.github/
+/.github/*
+!/.github/images/
+/.github/images/*
+!/.github/images/axinomyus-qr-cover.webp
+!/.github/images/axinomyus-download-options.webp
+!/.github/images/qr-only.png
+!/.github/images/qr-card.png
+!/.github/images/qr-studio-url.png
+!/.github/images/qr-studio-text.png
+!/.github/images/qr-studio-wifi.png
+!/.github/images/qr-studio-email.png
+!/.github/images/qr-studio-export.png

@@ -1,67 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-
-    <title>Axinomюs QR Code Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>QR Code Generator · Axinomyus</title>
+    <link rel="icon" href="img/Axinomyus Logo Non-Transparent Shining.png">
     <link rel="stylesheet" href="style.css">
-    <script src="src/jquery-3.7.0.min.js"></script>
-    <script src="src/html2canvas.min.js"></script>
+    <script src="src/vendor/qrious.js" defer></script>
+    <script src="localization.js" defer></script>
+    <script src="content.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
-
 <body>
-    <div class="creator">
-        <img height="50px" width="50px" src="img/Axinomюs Logo Light White Shadow.png" />
-        <h4>Designed and Created by <a target="_blank" href="https://www.axinomyus.com">Axinomюs</a></h4>
-    </div>
-    <div class="page-header"></div>
-    <main>
-        <section>
-            <div class="qr-img" id="qrImgContainer">
-                <img id="qrious">
-                <p class="banner-text">QR Code by Axinomюs</p>
+    <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <symbol id="icon-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="3" y="15" width="6" height="6" rx="1"/><path d="M15 15h3v3h3m-6 3v-3m6-6v3M12 3v3M3 12h3m6-3v6H9m3 6v-3"/></symbol>
+        <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+        <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M5 16v4h14v-4"/></symbol>
+        <symbol id="icon-link" viewBox="0 0 24 24"><path d="m10 13 4-4m-6 6-1 1a4 4 0 0 1-6-6l4-4a4 4 0 0 1 6 0m2 2 1-1a4 4 0 0 1 6 6l-4 4a4 4 0 0 1-6 0" transform="translate(1 1)"/></symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+        <symbol id="icon-sliders" viewBox="0 0 24 24"><path d="M4 7h7m4 0h5M4 17h3m4 0h9"/><circle cx="13" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
+        <symbol id="icon-text" viewBox="0 0 24 24"><path d="M5 6V4h14v2M12 4v16m-4 0h8"/></symbol>
+        <symbol id="icon-wifi" viewBox="0 0 24 24"><path d="M3 8a15 15 0 0 1 18 0M6 12a10 10 0 0 1 12 0m-9 4a5 5 0 0 1 6 0"/><circle cx="12" cy="20" r="0.7"/></symbol>
+        <symbol id="icon-email" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 6 8 6 8-6"/></symbol>
+    </svg>
+
+    <div class="app-shell">
+        <header class="app-header">
+            <a class="brand" href="https://www.axinomyus.com/" target="_blank" rel="noopener noreferrer" aria-label="Axinomyus website" data-i18n-aria="companySite">
+                <span class="brand-mark"><img src="img/Axinomyus Logo Light White Shadow.png" alt="Axinomyus" width="36" height="36"></span>
+                <span><strong>QR Studio<span class="brand-dot">.</span></strong><small data-i18n="brandBy">by Axinomyus</small></span>
+            </a>
+            <div class="header-tools">
+                <span class="local-badge"><span class="status-dot"></span> <span data-i18n="deviceOnly">Made on your device</span></span>
+                <div class="language-picker"><label for="language" data-i18n="language">Language</label><select id="language" name="language"><option value="tr" lang="tr">Türkçe</option><option value="en" lang="en" selected>English</option><option value="ru" lang="ru">Русский</option><option value="uk" lang="uk">Українська</option><option value="de" lang="de">Deutsch</option></select></div>
             </div>
-            <form autocomplete="off">
-                <label for="link">Link</label>
-                <input type="text" id="link" name="value" placeholder="Link here">
+        </header>
 
-                <label for="size">Size</label>
-                <input type="number" id="size" name="size" placeholder="100" min="100" max="1000" value="250">
+        <main class="workspace">
+            <section class="editor" aria-labelledby="editor-heading">
+                <div class="intro">
+                    <p class="eyebrow" data-i18n="eyebrow">SMALL CODE. BIG POSSIBILITIES.</p>
+                    <h1 id="editor-heading"><span data-i18n="headline">Make a connection</span><span class="headline-dot">.</span></h1>
+                    <p data-i18n="intro">A link, a thought, an invitation. Make it scannable.</p>
+                </div>
 
-                <label for="padding">Padding</label>
-                <input type="number" name="padding" id="padding" placeholder="Auto" min="0">
+                <form id="qr-form" novalidate>
+                    <fieldset class="form-section">
+                        <legend><span class="step">01</span> <span data-i18n="content">Your content</span></legend>
+                        <div class="content-tabs" role="tablist" aria-label="Content type" data-i18n-aria="contentType">
+                            <button id="tab-url" type="button" role="tab" data-content-type="url" aria-controls="panel-url" aria-selected="true"><svg class="icon"><use href="#icon-link"/></svg><span>URL</span></button>
+                            <button id="tab-text" type="button" role="tab" data-content-type="text" aria-controls="panel-text" aria-selected="false" tabindex="-1"><svg class="icon"><use href="#icon-text"/></svg><span data-i18n="typeText">Text</span></button>
+                            <button id="tab-wifi" type="button" role="tab" data-content-type="wifi" aria-controls="panel-wifi" aria-selected="false" tabindex="-1"><svg class="icon"><use href="#icon-wifi"/></svg><span>Wi-Fi</span></button>
+                            <button id="tab-email" type="button" role="tab" data-content-type="email" aria-controls="panel-email" aria-selected="false" tabindex="-1"><svg class="icon"><use href="#icon-email"/></svg><span data-i18n="typeEmail">Email</span></button>
+                        </div>
+                        <div id="panel-url" class="content-panel" role="tabpanel" aria-labelledby="tab-url">
+                            <label for="value"><span data-i18n="urlLabel">Website URL</span> <span class="required-label" data-i18n="required">Required</span></label>
+                            <div class="content-field"><input id="value" name="value" type="url" placeholder="https://example.com" aria-describedby="content-hint content-error" spellcheck="false" autocomplete="off" required><svg class="icon"><use href="#icon-link"/></svg></div>
+                            <p class="field-hint" id="content-hint" data-i18n="contentHint">Use a full https:// link to open a website.</p>
+                        </div>
+                        <div id="panel-text" class="content-panel" role="tabpanel" aria-labelledby="tab-text" hidden>
+                            <label for="text"><span data-i18n="textLabel">Your text</span> <span class="required-label" data-i18n="required">Required</span></label>
+                            <textarea id="text" name="text" rows="3" placeholder="Write your message…" data-i18n-placeholder="textPlaceholder" aria-describedby="text-hint content-error" required></textarea>
+                            <p class="field-hint" id="text-hint" data-i18n="textHint">Share a message, note, or any plain text.</p>
+                        </div>
+                        <div id="panel-wifi" class="content-panel" role="tabpanel" aria-labelledby="tab-wifi" hidden>
+                            <label for="wifi-ssid" data-i18n="wifiSsid">Network name (SSID)</label><input id="wifi-ssid" name="wifiSsid" type="text" maxlength="32" autocomplete="off" spellcheck="false" aria-describedby="wifi-hint content-error" required>
+                            <label for="wifi-security" data-i18n="wifiSecurity">Security</label><select id="wifi-security" name="wifiSecurity"><option value="WPA">WPA / WPA2</option><option value="WEP">WEP</option><option value="nopass" data-i18n="wifiOpen">No password</option></select>
+                            <div id="wifi-password-field"><label for="wifi-password" data-i18n="wifiPassword">Network password</label><input id="wifi-password" name="wifiPassword" type="password" maxlength="64" autocomplete="off" aria-describedby="content-error" required></div>
+                            <label class="switch-row" for="wifi-hidden"><span data-i18n="wifiHidden">Hidden network</span><input id="wifi-hidden" name="wifiHidden" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></label>
+                            <p class="field-hint" id="wifi-hint" data-i18n="wifiHint">Scan the QR to join this network.</p>
+                        </div>
+                        <div id="panel-email" class="content-panel" role="tabpanel" aria-labelledby="tab-email" hidden>
+                            <label for="email-address" data-i18n="emailAddress">Email address</label><input id="email-address" name="emailAddress" type="email" placeholder="hello@example.com" autocomplete="off" spellcheck="false" aria-describedby="email-hint content-error" required>
+                            <label for="email-subject"><span data-i18n="emailSubject">Subject</span> <span class="optional-label" data-i18n="optional">Optional</span></label><input id="email-subject" name="emailSubject" type="text" maxlength="200">
+                            <label for="email-body"><span data-i18n="emailBody">Message</span> <span class="optional-label" data-i18n="optional">Optional</span></label><textarea id="email-body" name="emailBody" rows="3" maxlength="2000"></textarea>
+                            <p class="field-hint" id="email-hint" data-i18n="emailHint">Scan to open an email draft with these details.</p>
+                        </div>
+                        <p class="field-error" id="content-error" role="alert" hidden></p>
+                    </fieldset>
 
-                <label for="level">Level</label>
-                <select name="level" id="level">
-                    <option value="L">L - 7% damage</option>
-                    <option value="M">M - 15% damage</option>
-                    <option value="Q">Q - 25% damage</option>
-                    <option value="H">H - 30% damage</option>
-                </select>
+                    <fieldset class="form-section card-fields">
+                        <legend><span class="step">02</span> <span data-i18n="customize">Make it yours</span> <span class="optional-label" data-i18n="optional">Optional</span></legend>
+                        <div class="field-row">
+                            <div><label for="title" data-i18n="title">Card title</label><input id="title" name="title" type="text" maxlength="70" placeholder="A little scan. A new connection." data-i18n-placeholder="titlePlaceholder"></div>
+                            <div><label for="caption" data-i18n="caption">Short message</label><input id="caption" name="caption" type="text" maxlength="100" placeholder="Scan to see what's next." data-i18n-placeholder="defaultCaption"></div>
+                        </div>
+                        <div class="palette-row">
+                            <span class="field-label" id="palette-label" data-i18n="palette">QR palette</span>
+                            <div class="palettes" role="group" aria-labelledby="palette-label">
+                                <button type="button" class="palette palette-lime" data-palette="lime" aria-label="Lime" data-i18n-aria="paletteLime" aria-pressed="true"><span></span></button>
+                                <button type="button" class="palette palette-classic" data-palette="classic" aria-label="Classic" data-i18n-aria="paletteClassic" aria-pressed="false"><span></span></button>
+                                <button type="button" class="palette palette-lavender" data-palette="lavender" aria-label="Lavender" data-i18n-aria="paletteLavender" aria-pressed="false"><span></span></button>
+                                <button type="button" class="palette palette-ice" data-palette="ice" aria-label="Ice" data-i18n-aria="paletteIce" aria-pressed="false"><span></span></button>
+                            </div>
+                            <span id="palette-name" class="palette-name">Lime</span>
+                        </div>
+                    </fieldset>
 
-                <label for="background">Background Color</label>
-                <input type="color" name="background" id="background" value="#ffffff">
+                    <fieldset class="form-section export-settings">
+                        <legend><span class="step">03</span> <span data-i18n="downloadSettings">Download settings</span></legend>
+                        <label for="format" data-i18n="format">File format</label>
+                        <select id="format" name="format"><option value="png" data-i18n="formatPng">PNG · best for QR codes</option><option value="jpeg" data-i18n="formatJpeg">JPEG · smaller image</option><option value="webp" data-i18n="formatWebp">WebP · compact & flexible</option></select>
+                        <label class="switch-row" for="transparent"><span><strong data-i18n="transparent">Transparent background</strong><small id="transparency-hint">QR background only. Cards keep their design.</small></span><input id="transparent" name="transparent" type="checkbox" role="switch" aria-describedby="transparency-hint"><span class="switch-track" aria-hidden="true"></span></label>
+                        <label class="switch-row" for="watermark"><span><strong data-i18n="watermark">Card watermark</strong><small data-i18n="watermarkHint">Add the Axinomyus signature to the card. QR-only downloads stay unbranded.</small></span><input id="watermark" name="watermark" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></label>
+                    </fieldset>
 
-                <label for="backgroundAlpha">Background Alpha</label>
-                <input type="number" name="backgroundAlpha" id="backgroundAlpha" placeholder="1" min="0" max="1"
-                    step="0.1" value="1">
+                    <details class="advanced-settings">
+                        <summary><svg class="icon"><use href="#icon-sliders"/></svg> <span data-i18n="fineTune">Fine-tune your QR</span> <span class="summary-chevron">⌄</span></summary>
+                        <div class="advanced-content">
+                            <div class="field-row">
+                                <div><label for="size" data-i18n="size">QR size (px)</label><input id="size" name="size" type="number" min="256" max="2048" step="1" value="1000" required></div>
+                                <div><label for="level" data-i18n="level">Error correction</label><select id="level" name="level"><option value="L" data-i18n="levelL">Low · 7%</option><option value="M" selected data-i18n="levelM">Balanced · 15%</option><option value="Q" data-i18n="levelQ">High · 25%</option><option value="H" data-i18n="levelH">Highest · 30%</option></select></div>
+                            </div>
+                            <div class="field-row">
+                                <div><label for="foreground" data-i18n="foreground">QR color</label><div class="color-field"><input id="foreground" name="foreground" type="color" value="#17251b"><output for="foreground" id="foreground-value">#17251B</output></div></div>
+                                <div><label for="background" data-i18n="background">Background</label><div class="color-field"><input id="background" name="background" type="color" value="#e2f6c5"><output for="background" id="background-value">#E2F6C5</output></div></div>
+                            </div>
+                            <div class="field-row">
+                                <div><label for="foregroundAlpha" data-i18n="foregroundAlpha">QR opacity</label><input id="foregroundAlpha" name="foregroundAlpha" type="number" min="0" max="1" step="0.05" value="1" required></div>
+                                <div><label for="backgroundAlpha" data-i18n="backgroundAlpha">Background opacity</label><input id="backgroundAlpha" name="backgroundAlpha" type="number" min="0" max="1" step="0.05" value="1" required></div>
+                            </div>
+                            <label for="padding" data-i18n="padding">Extra margin (px)</label>
+                            <input id="padding" name="padding" type="number" min="0" max="200" step="1" value="0" required>
+                            <p class="field-hint" data-i18n="marginHint">A safe border is always included. Keep colors contrasting for easy scanning.</p>
+                        </div>
+                    </details>
+                    <p class="field-error settings-error" id="settings-error" role="alert" hidden></p>
+                </form>
 
-                <label for="foreground">Foreground Color</label>
-                <input type="color" name="foreground" id="foreground" value="#000000">
+                <div class="lifetime-note"><span class="infinity">∞</span><div><strong data-i18n="lifetimeTitle">One QR. Unlimited possibilities.</strong><p data-i18n="lifetimeHint">No expiry. No scan limits. Always free.</p></div></div>
+            </section>
 
-                <label for="foregroundAlpha">Foreground Alpha</label>
-                <input type="number" name="foregroundAlpha" id="foregroundAlpha" placeholder="1" min="0" max="1"
-                    step="0.1" value="1">
-                <button id="download">Download</button>
-            </form>
-        </section>
-    </main>
+            <section class="preview-panel" aria-labelledby="preview-heading">
+                <div class="preview-heading"><h2 id="preview-heading" data-i18n="livePreview">LIVE PREVIEW</h2><span><span class="status-dot"></span> <span id="preview-status">Waiting for your content</span></span></div>
+                <div class="preview-stage">
+                    <article class="share-card" id="qrImgContainer" aria-label="Your QR card preview" data-i18n-aria="cardPreview">
+                        <div class="card-topline"><span data-i18n="scanConnect">SCAN & CONNECT</span><svg class="icon"><use href="#icon-arrow"/></svg></div>
+                        <h3 id="preview-title">A little scan.<br>A new connection.</h3>
+                        <div class="qr-frame" id="qr-frame">
+                            <canvas id="qrious" role="img" aria-label="Generated QR code" data-i18n-aria="qrImage" hidden></canvas>
+                            <div class="empty-preview" id="empty-preview"><svg class="icon"><use href="#icon-qr"/></svg><strong data-i18n="emptyTitle">Your QR goes here</strong><span data-i18n="emptyHint">Add a link or text to get started.</span></div>
+                        </div>
+                        <p id="preview-caption" class="preview-caption">Scan to see what's next.</p>
+                        <div class="ticket-divider"></div>
+                        <div class="card-footer"><span class="no-expiry"><span>∞</span> <span data-i18n="noExpiry">No expiry</span></span><span id="preview-destination">Made to be shared</span></div>
+                        <p class="card-watermark" id="preview-watermark" data-i18n="brandBy">by Axinomyus</p>
+                    </article>
+                </div>
+                <div class="export-actions">
+                    <div class="export-buttons">
+                        <button class="primary-button" id="download" type="button" aria-describedby="plain-qr-hint" disabled><svg class="icon"><use href="#icon-download"/></svg> <span data-i18n="downloadQr">Download QR only</span></button>
+                        <button class="secondary-button" id="download-card" type="button" disabled><span data-i18n="saveCard">Download card</span> <svg class="icon"><use href="#icon-arrow"/></svg></button>
+                    </div>
+                    <p class="plain-qr-hint" id="plain-qr-hint" data-i18n="plainQrHint">QR only: a square image for business cards and print, without the card design or watermark.</p>
+                    <p id="export-details">PNG format · 1000 × 1000 px</p>
+                    <p id="action-status" role="status" aria-live="polite"></p>
+                </div>
+            </section>
+        </main>
 
-    <script src="dist/qrious.js"></script>
-    <script src="script.js"></script>
+        <footer class="app-footer">
+            <nav class="company-links" aria-label="Axinomyus links" data-i18n-aria="companyLinks">
+                <a class="company-link" href="https://www.axinomyus.com/" target="_blank" rel="noopener noreferrer"><img src="img/Axinomyus Logo Non-Transparent Shining.png" alt="" width="32" height="20">Axinomyus</a>
+                <a href="https://www.axinomyus.com/products/qr-code-generator-extension" target="_blank" rel="noopener noreferrer" data-i18n="product">Product page</a>
+                <a href="https://github.com/Axinomyus/QR-Code-Generator" target="_blank" rel="noopener noreferrer" data-i18n="github">Code on GitHub</a>
+            </nav>
+            <span><svg class="icon"><use href="#icon-check"/></svg> <span data-i18n="privacy">Your content stays in your browser</span></span>
+        </footer>
+    </div>
 </body>
-
 </html>
