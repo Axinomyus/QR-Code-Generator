@@ -2,9 +2,11 @@
 
 Create QR codes for websites, text, Wi-Fi networks, and email drafts. Customize the colors, then download a clean QR image for your own design or a ready-to-share card.
 
+**Version 1.2.0** adds custom card backgrounds: choose an image, a solid color, or a two-color gradient, and adjust background opacity from 0% to 100%.
+
 [Chrome Web Store](https://chromewebstore.google.com/detail/idmopdehblodmajcpfopappenmddidoa) · [Product page](https://www.axinomyus.com/products/qr-code-generator-extension) · [Axinomyus](https://www.axinomyus.com/)
 
-![Axinomyus QR Studio with the current interface and a live QR preview](.github/images/axinomyus-qr-cover.webp)
+![Axinomyus QR Studio with the original green card and a live QR preview](.github/images/axinomyus-qr-cover.webp)
 
 ## Features
 
@@ -14,6 +16,7 @@ Create QR codes for websites, text, Wi-Fi networks, and email drafts. Customize 
 - **PNG, JPEG, and WebP:** use transparent PNG or WebP QR images in business cards, packaging, posters, and other layouts. JPEG uses a solid background.
 - **Customization:** color presets, custom colors, opacity, extra margin, error correction, and QR sizes from 256 to 2048 pixels.
 - **Optional card watermark:** show or hide the Axinomyus signature on card downloads. QR-only downloads never include the watermark.
+- **Your own card background:** keep the original design or choose a solid color, a two-color gradient, or a local PNG/JPEG/WebP image. Adjust its opacity independently of the QR and text. Images are centered and cropped to fill the card.
 - **Five languages:** Türkçe, English, Русский, Українська, and Deutsch. The interface remembers your selected language.
 - **Local generation:** QR content is processed in your browser. No account or server is needed to generate or download a code.
 
@@ -34,7 +37,9 @@ Switching tabs preserves the information entered in each form for the current se
 
 **Download QR only** produces a square image containing the QR and its scanning margin. It has no card design, title, caption, or watermark. Use this when you are designing a business card or placing a code in an existing layout.
 
-**Download card** includes the card design, your title and message, and an optional Axinomyus watermark. Its dimensions also depend on the card content. The transparency option applies to QR-only downloads; cards retain their designed background.
+**Download card** includes your chosen background, title and message, and an optional Axinomyus watermark. Its dimensions also depend on the card content. Open **Make it yours → Card background** to choose the original design, solid color, gradient or image and adjust opacity. PNG and WebP preserve card background transparency; JPEG composites it onto white. The QR stays on its own scanning surface, and QR-only downloads are unaffected by card settings.
+
+Background images support PNG, JPEG and WebP up to 10 MB, 16 megapixels and 8192 pixels per side. Images are processed locally and kept only for the current session. Removing an image lets you replace it or switch to another background style.
 
 The sample [QR image](.github/images/qr-only.png) and [card](.github/images/qr-card.png) both encode `https://www.axinomyus.com/`.
 
@@ -73,18 +78,20 @@ There is no installation or build step. To use the standalone interface, open `i
     </tr>
     <tr>
         <td><img src=".github/images/qr-studio-wifi.png" alt="Axinomyus Guest Wi-Fi QR form with a demonstration network" width="480"></td>
-        <td><img src=".github/images/qr-studio-email.png" alt="Axinomyus email QR form with an example address" width="480"></td>
+        <td><img src=".github/images/qr-studio-email.png" alt="Email QR form with an example address and the original green card" width="480"></td>
     </tr>
 </table>
 
-![Axinomyus QR export settings, transparency, and card watermark controls](.github/images/qr-studio-export.png)
+![QR export settings and watermark controls with the original green card](.github/images/qr-studio-export.png)
+
+![Custom card background controls with a gradient and independent opacity](.github/images/qr-studio-card-background.png)
 
 The Wi-Fi and email screenshots use demonstration data. They do not provide access to a real Axinomyus network or represent a contact address.
 
 ## Privacy and limits
 
 - QR generation and image export do not send your content to an API. Opening an external website link is a separate action.
-- Only the language preference is saved in local storage. Form contents, Wi-Fi credentials, and QR history are not persisted by the app.
+- Only the language preference is saved in local storage. Form contents, Wi-Fi credentials, selected background images, card settings and QR history are not persisted by the app.
 - A Wi-Fi QR contains the entered password when the network requires one. Share that QR only with people who should be able to join the network.
 - Static QR codes do not expire and have no scan counter. A website or other destination encoded in a QR still needs to remain available.
 - An exported QR cannot be edited remotely. Generate a new code if the encoded information changes.
@@ -97,6 +104,7 @@ The Wi-Fi and email screenshots use demonstration data. They do not provide acce
 | `index.html` / `style.css` | Extension and standalone interface |
 | `content.js` | Content tabs, validation, Wi-Fi and email encoding |
 | `script.js` | QR preview, appearance, and image downloads |
+| `card-background.js` | Local image loading, card backgrounds, opacity and shared preview/export rendering |
 | `localization.js` | Five-language interface and language preference |
 | `manifest.json` | Chrome Manifest V3 extension configuration |
 | `src/vendor/qrious.js` | Bundled QRious encoder |

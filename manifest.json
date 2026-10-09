@@ -1,6 +1,6 @@
 {
     "name": "QR Code Generator",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "QR Code Generator by Axinomyus. Generate and download your QR codes for free, with no expiry or scan limits.",
     "manifest_version": 3,
     "author": "Axinomyus",

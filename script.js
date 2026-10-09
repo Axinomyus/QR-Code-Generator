@@ -51,7 +51,7 @@
     function updateButtons()
     {
         downloadButton.disabled = !exportReady || exporting;
-        cardButton.disabled     = !exportReady || exporting;
+        cardButton.disabled     = !exportReady || exporting || !window.QrCardBackground.isReady();
     }
 
     function setPreviewReady(ready)
@@ -396,26 +396,29 @@
         canvas.width  = width;
         canvas.height = Math.ceil(dividerY + 116 + watermarkHeight);
 
-        const background = context.createLinearGradient(0, 0, width, canvas.height);
+        const colors = window.QrCardBackground.getTextColors();
 
-        background.addColorStop(0, '#3d4b2a');
-        background.addColorStop(1, '#182315');
-        fillRoundedRectangle(context, 0, 0, width, canvas.height, 52, background);
+        context.save();
+        context.beginPath();
+        context.roundRect(0, 0, width, canvas.height, 52);
+        context.clip();
+        window.QrCardBackground.draw(context, width, canvas.height);
+        context.restore();
 
-        context.strokeStyle = '#79964f';
+        context.strokeStyle = colors.border;
         context.lineWidth   = 2;
         context.beginPath();
         context.roundRect(2, 2, width - 4, canvas.height - 4, 50);
         context.stroke();
 
-        context.fillStyle = '#c2d0ab';
+        context.fillStyle = colors.text;
         context.font      = '22px "Segoe UI", Arial, sans-serif';
         context.fillText(translate('scanConnect'), 62, 75, width - 180);
         context.font = '38px "Segoe UI", Arial, sans-serif';
         context.fillText('↗', width - 96, 79);
 
         context.textAlign = 'center';
-        context.fillStyle = '#b1f55c';
+        context.fillStyle = colors.title;
         context.font      = '500 ' + fontSize + 'px "Segoe UI", Arial, sans-serif';
 
         for (let index = 0; index < titleLines.length; index++)
@@ -431,7 +434,7 @@
         context.drawImage(qrCanvas, 120, qrTop);
         context.restore();
 
-        context.fillStyle = '#c1cfb3';
+        context.fillStyle = colors.muted;
         context.font      = '28px "Segoe UI", Arial, sans-serif';
 
         for (let index = 0; index < captionLines.length; index++)
@@ -439,7 +442,7 @@
             context.fillText(captionLines[index], width / 2, qrTop + qrSize + 58 + index * 39);
         }
 
-        context.strokeStyle = '#7c915d';
+        context.strokeStyle = colors.border;
         context.setLineDash([9, 10]);
         context.beginPath();
         context.moveTo(0, dividerY);
@@ -458,7 +461,7 @@
 
         context.globalCompositeOperation = 'source-over';
         context.textAlign = 'left';
-        context.fillStyle = '#d4e4c0';
+        context.fillStyle = colors.text;
         context.font      = '26px "Segoe UI", Arial, sans-serif';
         const expiryText  = '∞  ' + translate('noExpiry');
         const expiryWidth = context.measureText(expiryText).width;
@@ -479,7 +482,7 @@
         }
 
         context.textAlign = 'right';
-        context.fillStyle = '#9dae8f';
+        context.fillStyle = colors.muted;
         context.fillText(destinationText, width - 62, dividerY + 69);
 
         if (fields.watermark.checked)
@@ -509,6 +512,11 @@
     function exportImage(card)
     {
         if (!exportReady || exporting)
+        {
+            return;
+        }
+
+        if (card && !window.QrCardBackground.isReady())
         {
             return;
         }
@@ -610,6 +618,11 @@
     });
 
     document.addEventListener('languagechange', renderQr);
+    document.addEventListener('cardbackgroundchange', function ()
+    {
+        actionStatus.textContent = '';
+        updateButtons();
+    });
     document.addEventListener('contenttypechange', renderQr);
     renderQr();
 })();

@@ -10,6 +10,7 @@
     <script src="src/vendor/qrious.js" defer></script>
     <script src="localization.js" defer></script>
     <script src="content.js" defer></script>
+    <script src="card-background.js" defer></script>
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -86,6 +87,23 @@
                             <div><label for="title" data-i18n="title">Card title</label><input id="title" name="title" type="text" maxlength="70" placeholder="A little scan. A new connection." data-i18n-placeholder="titlePlaceholder"></div>
                             <div><label for="caption" data-i18n="caption">Short message</label><input id="caption" name="caption" type="text" maxlength="100" placeholder="Scan to see what's next." data-i18n-placeholder="defaultCaption"></div>
                         </div>
+                        <details class="card-background-settings" id="card-background-settings">
+                            <summary><span data-i18n="cardBackground">Card background</span><span class="summary-chevron">⌄</span></summary>
+                            <label for="card-background-type" data-i18n="backgroundType">Background style</label>
+                            <select id="card-background-type"><option value="default" data-i18n="originalDesign">Original design</option><option value="solid" data-i18n="solidColor">Solid color</option><option value="gradient" data-i18n="gradientColor">Gradient</option><option value="image" data-i18n="backgroundImage">Image</option></select>
+                            <div id="card-color-settings" class="field-row" hidden>
+                                <div><label for="card-color" data-i18n="cardColor">First color</label><div class="color-field"><input id="card-color" type="color" value="#3d4b2a"><output id="card-color-value" for="card-color">#3D4B2A</output></div></div>
+                                <div id="card-gradient-settings" hidden><label for="card-color-end" data-i18n="cardColorEnd">Second color</label><div class="color-field"><input id="card-color-end" type="color" value="#182315"><output id="card-color-end-value" for="card-color-end">#182315</output></div></div>
+                            </div>
+                            <div id="card-image-settings" hidden>
+                                <label for="card-image" data-i18n="chooseImage">Choose an image</label><input id="card-image" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="card-image-hint card-background-error">
+                                <p class="field-hint" id="card-image-hint" data-i18n="cardImageHint">PNG, JPEG or WebP, up to 10 MB and 16 megapixels. Centered and cropped to fill the card. Stays on your device.</p>
+                                <button type="button" class="secondary-button" id="remove-card-image" data-i18n="removeImage" hidden>Remove image</button>
+                            </div>
+                            <div id="card-opacity-settings" hidden><label for="card-opacity"><span data-i18n="cardOpacity">Card background opacity</span> <output id="card-opacity-value" for="card-opacity">100%</output></label><input id="card-opacity" type="range" min="0" max="100" step="1" value="100" aria-describedby="card-opacity-hint"><p class="field-hint" id="card-opacity-hint" data-i18n="cardOpacityHint">Only the card background changes. PNG and WebP keep transparency; JPEG uses white underneath.</p></div>
+                            <p class="field-hint" id="card-image-status" role="status" aria-live="polite" hidden></p>
+                            <p class="field-error" id="card-background-error" role="alert" hidden></p>
+                        </details>
                         <div class="palette-row">
                             <span class="field-label" id="palette-label" data-i18n="palette">QR palette</span>
                             <div class="palettes" role="group" aria-labelledby="palette-label">
@@ -136,6 +154,7 @@
                 <div class="preview-heading"><h2 id="preview-heading" data-i18n="livePreview">LIVE PREVIEW</h2><span><span class="status-dot"></span> <span id="preview-status">Waiting for your content</span></span></div>
                 <div class="preview-stage">
                     <article class="share-card" id="qrImgContainer" aria-label="Your QR card preview" data-i18n-aria="cardPreview">
+                        <canvas id="card-background-preview" aria-hidden="true"></canvas>
                         <div class="card-topline"><span data-i18n="scanConnect">SCAN & CONNECT</span><svg class="icon"><use href="#icon-arrow"/></svg></div>
                         <h3 id="preview-title">A little scan.<br>A new connection.</h3>
                         <div class="qr-frame" id="qr-frame">
