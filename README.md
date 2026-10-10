@@ -2,7 +2,9 @@
 
 Create QR codes for websites, text, Wi-Fi networks, and email drafts. Customize the colors, then download a clean QR image for your own design or a ready-to-share card.
 
-**Version 1.2.0** adds custom card backgrounds: choose an image, a solid color, or a two-color gradient, and adjust background opacity from 0% to 100%.
+**Version 1.3.0** adds linked size sliders, multiline card titles, clipboard copying, SVG downloads and a saved workspace. QR size now follows the full slider range without the former card-width limit.
+
+The current source also includes current-tab autofill, PNG clipboard copying, vector SVG downloads, and a saved workspace with **Reset all**.
 
 [Chrome Web Store](https://chromewebstore.google.com/detail/idmopdehblodmajcpfopappenmddidoa) · [Product page](https://www.axinomyus.com/products/qr-code-generator-extension) · [Axinomyus](https://www.axinomyus.com/)
 
@@ -11,11 +13,17 @@ Create QR codes for websites, text, Wi-Fi networks, and email drafts. Customize 
 ## Features
 
 - **Four content types:** URL, text, Wi-Fi, and email, with a dedicated form for each.
+- **Current tab shortcut:** a fresh workspace fills the URL field with the current webpage. Saved content takes priority on later openings. Use **Use current tab** to replace the URL when needed.
+- **Copy QR image:** copy the QR as PNG and paste it into an application that accepts images.
+- **Vector SVG:** download a QR made of vector paths, preserving the colors, opacity and scanning margin for scalable print output.
+- **Saved workspace:** restore all content forms, the selected tab, design settings and background image on reopening. **Reset all** clears the saved workspace and restores default values; the interface language is kept.
 - **Unlimited scans, no expiry:** static QR codes contain your content directly, without a hosted redirect service or subscription.
 - **Two download options:** an unbranded, square QR image or a designed card with a title and short message.
+- **Balanced cards:** a smaller default QR, readable captions and footer labels, multiline titles, and a vertically scrolling extension preview with fixed download controls.
+- **Size sliders:** adjust QR background width and height from 256 to 4096 pixels. The QR automatically fits the background and stays centered. QR output size and extra margin also use sliders with live pixel values.
 - **PNG, JPEG, and WebP:** use transparent PNG or WebP QR images in business cards, packaging, posters, and other layouts. JPEG uses a solid background.
 - **Customization:** color presets, custom colors, opacity, extra margin, error correction, and QR sizes from 256 to 2048 pixels.
-- **Optional card watermark:** show or hide the Axinomyus signature on card downloads. QR-only downloads never include the watermark.
+- **Optional card watermark:** show or hide the Axinomyus logo above its signature on card downloads. QR-only downloads never include the watermark. The app header uses the extension icon.
 - **Your own card background:** keep the original design or choose a solid color, a two-color gradient, or a local PNG/JPEG/WebP image. Adjust its opacity independently of the QR and text. Images are centered and cropped to fill the card.
 - **Five languages:** Türkçe, English, Русский, Українська, and Deutsch. The interface remembers your selected language.
 - **Local generation:** QR content is processed in your browser. No account or server is needed to generate or download a code.
@@ -29,7 +37,7 @@ Create QR codes for websites, text, Wi-Fi networks, and email drafts. Customize 
 | Wi-Fi | Network name, security, password, and optional hidden-network setting | A Wi-Fi configuration for WPA/WPA2, WEP, or an open network |
 | Email | Recipient, optional subject, and optional message | A `mailto:` link that opens an email draft |
 
-Switching tabs preserves the information entered in each form for the current session. A scanner's available actions depend on the device and scanning application.
+Switching tabs and reopening the extension preserve the information entered in every form. A scanner's available actions depend on the device and scanning application.
 
 ## QR image or card?
 
@@ -37,9 +45,21 @@ Switching tabs preserves the information entered in each form for the current se
 
 **Download QR only** produces a square image containing the QR and its scanning margin. It has no card design, title, caption, or watermark. Use this when you are designing a business card or placing a code in an existing layout.
 
-**Download card** includes your chosen background, title and message, and an optional Axinomyus watermark. Its dimensions also depend on the card content. Open **Make it yours → Card background** to choose the original design, solid color, gradient or image and adjust opacity. PNG and WebP preserve card background transparency; JPEG composites it onto white. The QR stays on its own scanning surface, and QR-only downloads are unaffected by card settings.
+**Download card** includes your chosen background, title, message, footer text and an optional Axinomyus watermark. Its dimensions also depend on the card content. Open **Make it yours → Card background** to choose the original design, solid color, gradient or image and adjust opacity. PNG and WebP preserve card background transparency; JPEG composites it onto white. QR-only downloads contain no card text, decoration or watermark.
 
-Background images support PNG, JPEG and WebP up to 10 MB, 16 megapixels and 8192 pixels per side. Images are processed locally and kept only for the current session. Removing an image lets you replace it or switch to another background style.
+Use **QR size** to choose the actual QR dimensions, from 256 to 2048 px. Increasing it expands a smaller background automatically. Shrinking the **QR background width** or **QR background height** below the QR size also updates the QR slider and export resolution to fit. Extra margin adjusts when necessary to preserve the code. The displayed value, preview and downloaded QR stay consistent.
+
+Small backgrounds retain the card's base dimensions; larger backgrounds and longer text extend the layout as needed. Defaults use an 800 × 800 px background with a 720 px QR on a 1240 × 1860 px card. Scroll the extension preview to see its full height.
+
+Press **Enter** in **Card title** to add a new line. Titles, slider values and other settings persist with the workspace; **Reset all** restores defaults.
+
+**Card footer text** replaces the lower-right destination label with your own text. Leave it blank to restore the automatic destination. This text is saved with the other fields and does not change the content encoded in the QR.
+
+Turn on **Equal dimensions** to make the background square and move both size sliders together. Turn it off to change width and height independently. This choice is saved with the workspace.
+
+Background images support PNG, JPEG and WebP up to 10 MB, 16 megapixels and 8192 pixels per side. Images are processed and saved locally. **Remove image** deletes the selected image, while **Reset all** clears the whole saved workspace.
+
+**Copy QR image** always copies the square QR as PNG. **Download SVG** exports the square QR as vector paths, without a card background or watermark. Card downloads continue to use PNG, JPEG or WebP.
 
 The sample [QR image](.github/images/qr-only.png) and [card](.github/images/qr-card.png) both encode `https://www.axinomyus.com/`.
 
@@ -48,6 +68,8 @@ The sample [QR image](.github/images/qr-only.png) and [card](.github/images/qr-c
 ### Chrome extension
 
 Install from the [Chrome Web Store](https://chromewebstore.google.com/detail/idmopdehblodmajcpfopappenmddidoa), then open QR Code Generator from the extensions menu.
+
+On an HTTP or HTTPS webpage, a fresh workspace fills the URL field automatically. A saved workspace is restored first, including intentionally empty fields. **Use current tab** reads the address when needed. Browser settings pages, local files and other non-web addresses are not imported; you can still enter a website link manually. The shortcut is available only in the extension. Reset leaves the current form empty; opening again starts a fresh workspace.
 
 The screenshots in this README show the source in this repository. The store package is released separately and may not yet include these changes.
 
@@ -86,12 +108,17 @@ There is no installation or build step. To use the standalone interface, open `i
 
 ![Custom card background controls with a gradient and independent opacity](.github/images/qr-studio-card-background.png)
 
+![QR size sliders and equal background dimensions without an artificial growth limit](.github/images/qr-studio-sizing.png)
+
 The Wi-Fi and email screenshots use demonstration data. They do not provide access to a real Axinomyus network or represent a contact address.
 
 ## Privacy and limits
 
+- The extension uses Chrome's `activeTab` permission to read the current page address when you invoke it. The address is processed locally and saved with your workspace.
 - QR generation and image export do not send your content to an API. Opening an external website link is a separate action.
-- Only the language preference is saved in local storage. Form contents, Wi-Fi credentials, selected background images, card settings and QR history are not persisted by the app.
+- The current workspace is saved in IndexedDB on this device, including every content form, Wi-Fi credentials, selected background image and design settings. **Reset all** deletes it. The language preference is stored separately in local storage and is retained on reset. There is no QR history or cloud synchronization.
+- Clipboard writing happens only when you select **Copy QR image**. The app does not read the clipboard. If copying is unavailable or denied, use PNG download.
+- Storage failures are shown in the interface. A failed reset keeps the current fields intact so it does not claim that stored data was deleted.
 - A Wi-Fi QR contains the entered password when the network requires one. Share that QR only with people who should be able to join the network.
 - Static QR codes do not expire and have no scan counter. A website or other destination encoded in a QR still needs to remain available.
 - An exported QR cannot be edited remotely. Generate a new code if the encoded information changes.
@@ -104,6 +131,8 @@ The Wi-Fi and email screenshots use demonstration data. They do not provide acce
 | `index.html` / `style.css` | Extension and standalone interface |
 | `content.js` | Content tabs, validation, Wi-Fi and email encoding |
 | `script.js` | QR preview, appearance, and image downloads |
+| `qr-svg.js` | Vector export from the bundled encoder's QR module matrix |
+| `draft.js` | Local workspace persistence, restoration and reset |
 | `card-background.js` | Local image loading, card backgrounds, opacity and shared preview/export rendering |
 | `localization.js` | Five-language interface and language preference |
 | `manifest.json` | Chrome Manifest V3 extension configuration |

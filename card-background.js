@@ -20,6 +20,7 @@
     let requestId   = 0;
     let errorKey    = '';
     let imageName   = '';
+    let imageFile   = null;
 
     function isReady()
     {
@@ -162,9 +163,8 @@
         document.dispatchEvent(new Event('cardbackgroundchange'));
     }
 
-    async function loadImage()
+    async function loadImage(file)
     {
-        const file    = fileInput.files[0];
         const current = ++requestId;
 
         if (!file)
@@ -212,6 +212,7 @@
             nextImage.getContext('2d').drawImage(bitmap, 0, 0, nextImage.width, nextImage.height);
             image     = nextImage;
             imageName = file.name;
+            imageFile = file;
         }
         catch (error)
         {
@@ -247,19 +248,28 @@
         }
     });
 
-    fileInput.addEventListener('change', loadImage);
-    removeButton.addEventListener('click', function ()
+    function clearImage()
     {
         requestId++;
         image           = null;
         imageName       = '';
+        imageFile       = null;
         errorKey        = '';
         loading         = false;
         fileInput.value = '';
         update();
-    });
+    }
 
-    window.QrCardBackground = Object.freeze({ draw: draw, isReady: isReady, getTextColors: getTextColors });
+    fileInput.addEventListener('change', function ()
+    {
+        loadImage(fileInput.files[0]);
+    });
+    removeButton.addEventListener('click', clearImage);
+
+    window.QrCardBackground = Object.freeze({ draw: draw, isReady: isReady, getTextColors: getTextColors, update: update, reset: clearImage, restoreImage: loadImage, getImage: function ()
+    {
+        return imageFile;
+    } });
     new ResizeObserver(renderPreview).observe(card);
     document.addEventListener('languagechange', update);
     document.getElementById('format').addEventListener('input', renderPreview);

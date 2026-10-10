@@ -9,6 +9,8 @@
 !/script.js
 !/content.js
 !/card-background.js
+!/qr-svg.js
+!/draft.js
 !/localization.js
 !/src/
 /src/*
@@ -39,3 +41,4 @@
 !/.github/images/qr-studio-email.png
 !/.github/images/qr-studio-export.png
 !/.github/images/qr-studio-card-background.png
+!/.github/images/qr-studio-sizing.png

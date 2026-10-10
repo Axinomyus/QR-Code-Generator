@@ -2,10 +2,76 @@
 {
     'use strict';
 
-    const fields = document.getElementById('qr-form').elements;
-    const tabs   = Array.from(document.querySelectorAll('[data-content-type]'));
-    const types  = ['url', 'text', 'wifi', 'email'];
-    let type     = 'url';
+    const fields           = document.getElementById('qr-form').elements;
+    const tabs             = Array.from(document.querySelectorAll('[data-content-type]'));
+    const types            = ['url', 'text', 'wifi', 'email'];
+    const currentTabButton = document.getElementById('use-current-tab');
+    const currentTabStatus = document.getElementById('current-tab-status');
+
+    let type              = 'url';
+    let contentRevision   = 0;
+    let currentTabMessage = '';
+
+    function showCurrentTabStatus(message)
+    {
+        currentTabMessage            = message;
+        currentTabStatus.textContent = '';
+        currentTabStatus.hidden      = !message;
+
+        if (message)
+        {
+            currentTabStatus.textContent = window.QrI18n.translate(message);
+        }
+    }
+
+    async function useCurrentTab()
+    {
+        if (currentTabButton.disabled)
+        {
+            return;
+        }
+
+        const revision = contentRevision;
+
+        currentTabButton.disabled = true;
+        showCurrentTabStatus('currentTabLoading');
+
+        try
+        {
+            const activeTabs = await chrome.tabs.query({ active: true, currentWindow: true });
+
+            // A delayed browser response must not replace content edited in the meantime.
+            if (revision != contentRevision)
+            {
+                return;
+            }
+
+            const tab = activeTabs[0];
+
+            if (!tab || typeof tab.url != 'string' || !/^https?:\/\//i.test(tab.url) || /\s/.test(tab.url) || !URL.canParse(tab.url))
+            {
+                showCurrentTabStatus('currentTabUnavailable');
+                return;
+            }
+
+            fields.value.value = tab.url;
+            fields.value.dispatchEvent(new Event('input', { bubbles: true }));
+            showCurrentTabStatus('currentTabAdded');
+        }
+        catch (error)
+        {
+            console.warn('The current tab address could not be read.', error);
+
+            if (revision == contentRevision)
+            {
+                showCurrentTabStatus('currentTabFailed');
+            }
+        }
+        finally
+        {
+            currentTabButton.disabled = false;
+        }
+    }
 
     function selectType(nextType)
     {
@@ -15,6 +81,8 @@
         }
 
         type = nextType;
+        contentRevision += 1;
+        showCurrentTabStatus('');
 
         for (const tab of tabs)
         {
@@ -215,5 +283,33 @@
         });
     }
 
-    window.QrContent = Object.freeze({ read: readContent });
+    fields.value.addEventListener('input', function ()
+    {
+        contentRevision += 1;
+        showCurrentTabStatus('');
+    });
+
+    document.addEventListener('languagechange', function ()
+    {
+        showCurrentTabStatus(currentTabMessage);
+    });
+
+    function initializeCurrentTab(autoFill)
+    {
+        if (autoFill && !currentTabButton.hidden && type == 'url' && !fields.value.value)
+        {
+            return useCurrentTab();
+        }
+    }
+
+    window.QrContent = Object.freeze({ read: readContent, selectType: selectType, initialize: initializeCurrentTab, getType: function ()
+    {
+        return type;
+    } });
+
+    if (window.location.protocol == 'chrome-extension:' && typeof chrome != 'undefined' && chrome.tabs && typeof chrome.tabs.query == 'function')
+    {
+        currentTabButton.hidden = false;
+        currentTabButton.addEventListener('click', useCurrentTab);
+    }
 })();

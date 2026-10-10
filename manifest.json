@@ -1,8 +1,9 @@
 {
     "name": "QR Code Generator",
-    "version": "1.2.0",
-    "description": "QR Code Generator by Axinomyus. Generate and download your QR codes for free, with no expiry or scan limits.",
+    "version": "1.3.0",
+    "description": "Create and copy QR codes. Export PNG, JPEG, WebP or SVG. Customize cards with size sliders and save your work locally.",
     "manifest_version": 3,
+    "permissions": ["activeTab"],
     "author": "Axinomyus",
     "homepage_url": "https://www.axinomyus.com/products/qr-code-generator-extension",
     "action":{
