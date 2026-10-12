@@ -4,6 +4,11 @@
 
     const translations = {
         en: {
+            cardTextAuto: "Automatic text colors",
+            cardTextAutoHint: "Turn off to choose text colors that suit your background.",
+            cardTitleColor: "Title and accent",
+            cardTextColor: "Card labels",
+            cardMutedColor: "Message and footer",
             qrSurfaceWidth: 'QR background width (px)', qrSurfaceHeight: 'QR background height (px)',
             qrSurfaceLinked: 'Equal dimensions',
             footerText: 'Card footer text', footerTextHint: 'Leave empty to use the content destination automatically.',
@@ -84,6 +89,11 @@
             downloadReady: 'Your {format} is ready. Check your browser downloads.', exportError: 'The image could not be created. Try a smaller size or choose PNG.'
         },
         tr: {
+            cardTextAuto: "Otomatik yazı renkleri",
+            cardTextAutoHint: "Arka planına uygun yazı renkleri seçmek için kapat.",
+            cardTitleColor: "Başlık ve vurgu",
+            cardTextColor: "Kart etiketleri",
+            cardMutedColor: "Mesaj ve alt yazı",
             qrSurfaceWidth: 'QR zemini genişliği (px)', qrSurfaceHeight: 'QR zemini yüksekliği (px)',
             qrSurfaceLinked: 'Eşit boyutlar',
             footerText: 'Kart alt yazısı', footerTextHint: 'Boş bırakırsan içerik hedefi otomatik gösterilir.',
@@ -164,6 +174,11 @@
             downloadReady: '{format} hazır. Tarayıcının indirilenler bölümünü kontrol et.', exportError: 'Görsel oluşturulamadı. Daha küçük bir boyut veya PNG seç.'
         },
         ru: {
+            cardTextAuto: "Автоматические цвета текста",
+            cardTextAutoHint: "Отключите, чтобы выбрать цвета текста для своего фона.",
+            cardTitleColor: "Заголовок и акцент",
+            cardTextColor: "Надписи карточки",
+            cardMutedColor: "Сообщение и нижний текст",
             qrSurfaceWidth: 'Ширина фона QR (px)', qrSurfaceHeight: 'Высота фона QR (px)',
             qrSurfaceLinked: 'Равные размеры',
             footerText: 'Текст внизу карточки', footerTextHint: 'Оставь пустым, чтобы автоматически показывать назначение содержимого.',
@@ -244,6 +259,11 @@
             downloadReady: '{format} готов. Проверь загрузки браузера.', exportError: 'Не удалось создать изображение. Уменьши размер или выбери PNG.'
         },
         uk: {
+            cardTextAuto: "Автоматичні кольори тексту",
+            cardTextAutoHint: "Вимкніть, щоб вибрати кольори тексту для свого тла.",
+            cardTitleColor: "Заголовок і акцент",
+            cardTextColor: "Написи картки",
+            cardMutedColor: "Повідомлення і нижній текст",
             qrSurfaceWidth: 'Ширина тла QR (px)', qrSurfaceHeight: 'Висота тла QR (px)',
             qrSurfaceLinked: 'Однакові розміри',
             footerText: 'Текст унизу картки', footerTextHint: 'Залиш порожнім, щоб автоматично показувати призначення вмісту.',
@@ -324,6 +344,11 @@
             downloadReady: '{format} готовий. Перевір завантаження браузера.', exportError: 'Не вдалося створити зображення. Зменш розмір або вибери PNG.'
         },
         de: {
+            cardTextAuto: "Automatische Textfarben",
+            cardTextAutoHint: "Ausschalten, um passende Textfarben für den Hintergrund zu wählen.",
+            cardTitleColor: "Titel und Akzent",
+            cardTextColor: "Kartenbeschriftung",
+            cardMutedColor: "Nachricht und Fußtext",
             qrSurfaceWidth: 'QR-Hintergrundbreite (px)', qrSurfaceHeight: 'QR-Hintergrundhöhe (px)',
             qrSurfaceLinked: 'Gleiche Abmessungen',
             footerText: 'Text im Kartenfuß', footerTextHint: 'Leer lassen, um das Inhaltsziel automatisch anzuzeigen.',

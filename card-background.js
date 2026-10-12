@@ -7,6 +7,10 @@
     const color         = document.getElementById('card-color');
     const colorEnd      = document.getElementById('card-color-end');
     const opacity       = document.getElementById('card-opacity');
+    const autoTextColor = document.getElementById('card-text-auto');
+    const titleColor    = document.getElementById('card-title-color');
+    const textColor     = document.getElementById('card-text-color');
+    const mutedColor    = document.getElementById('card-muted-color');
     const fileInput     = document.getElementById('card-image');
     const removeButton  = document.getElementById('remove-card-image');
     const preview       = document.getElementById('card-background-preview');
@@ -75,7 +79,7 @@
         context.restore();
     }
 
-    function getTextColors()
+    function getAutomaticTextColors()
     {
         const sample  = document.createElement('canvas');
         const context = sample.getContext('2d', { willReadFrequently: true });
@@ -102,6 +106,20 @@
         return { title: '#b1f55c', text: '#d4e4c0', muted: '#c1cfb3', border: '#79964f' };
     }
 
+    function getTextColors()
+    {
+        const colors = getAutomaticTextColors();
+
+        if (!autoTextColor.checked)
+        {
+            colors.title = titleColor.value;
+            colors.text  = textColor.value;
+            colors.muted = mutedColor.value;
+        }
+
+        return colors;
+    }
+
     function renderPreview()
     {
         const bounds = card.getBoundingClientRect();
@@ -121,6 +139,18 @@
         draw(context, preview.width, preview.height);
 
         const colors = getTextColors();
+
+        for (const [name, input] of [['title', titleColor], ['text', textColor], ['muted', mutedColor]])
+        {
+            input.disabled = autoTextColor.checked;
+
+            if (autoTextColor.checked)
+            {
+                input.value = colors[name];
+            }
+
+            document.getElementById(input.id + '-value').textContent = input.value.toUpperCase();
+        }
 
         for (const [name, value] of Object.entries(colors))
         {

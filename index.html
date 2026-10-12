@@ -112,6 +112,12 @@
                                 <button type="button" class="secondary-button" id="remove-card-image" data-i18n="removeImage" hidden>Remove image</button>
                             </div>
                             <div id="card-opacity-settings" hidden><label for="card-opacity"><span data-i18n="cardOpacity">Card background opacity</span> <output id="card-opacity-value" for="card-opacity">100%</output></label><input id="card-opacity" type="range" min="0" max="100" step="1" value="100" aria-describedby="card-opacity-hint"><p class="field-hint" id="card-opacity-hint" data-i18n="cardOpacityHint">Only the card background changes. PNG and WebP keep transparency; JPEG uses white underneath.</p></div>
+                            <label class="switch-row" for="card-text-auto"><span><strong data-i18n="cardTextAuto">Automatic text colors</strong><small data-i18n="cardTextAutoHint">Turn off to choose text colors that suit your background.</small></span><input id="card-text-auto" name="cardTextAuto" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></label>
+                            <div class="field-row">
+                                <div><label for="card-title-color" data-i18n="cardTitleColor">Title and accent</label><div class="color-field"><input id="card-title-color" name="cardTitleColor" type="color" value="#b1f55c" disabled><output for="card-title-color" id="card-title-color-value">#B1F55C</output></div></div>
+                                <div><label for="card-text-color" data-i18n="cardTextColor">Card labels</label><div class="color-field"><input id="card-text-color" name="cardTextColor" type="color" value="#d4e4c0" disabled><output for="card-text-color" id="card-text-color-value">#D4E4C0</output></div></div>
+                            </div>
+                            <label for="card-muted-color" data-i18n="cardMutedColor">Message and footer</label><div class="color-field"><input id="card-muted-color" name="cardMutedColor" type="color" value="#c1cfb3" disabled><output for="card-muted-color" id="card-muted-color-value">#C1CFB3</output></div>
                             <p class="field-hint" id="card-image-status" role="status" aria-live="polite" hidden></p>
                             <p class="field-error" id="card-background-error" role="alert" hidden></p>
                         </details>

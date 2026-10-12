@@ -2,7 +2,7 @@
 
 Create QR codes for websites, text, Wi-Fi networks, and email drafts. Customize the colors, then download a clean QR image for your own design or a ready-to-share card.
 
-**Version 1.3.0** adds linked size sliders, multiline titles, an editable card footer, current-tab autofill, clipboard copying, SVG downloads and a saved workspace with **Reset all**. QR size now follows the full slider range without the former card-width limit.
+**Version 1.4.0** adds customizable card text colors with automatic color selection, saved preferences and matching previews/downloads. It retains linked size sliders, multiline titles, an editable card footer, current-tab autofill, clipboard copying, SVG downloads and a saved workspace with **Reset all**. QR size now follows the full slider range without the former card-width limit.
 
 [Chrome Web Store](https://chromewebstore.google.com/detail/idmopdehblodmajcpfopappenmddidoa) · [Product page](https://www.axinomyus.com/products/qr-code-generator-extension) · [Axinomyus](https://www.axinomyus.com/)
 
